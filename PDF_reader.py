@@ -9,7 +9,7 @@ def pdf_reader(path):
   text=""
   for page in reader.pages:
     text+=page.extract_text()
-    return text
+  return text
 text=pdf_reader(path)
 
 #create chunks
