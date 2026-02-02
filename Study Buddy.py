@@ -1,4 +1,4 @@
-from pdf2image import convert_from_bytes
+from pdf2image import convert_from_path
 import pytesseract
 import numpy as np
 import cv2
@@ -24,7 +24,7 @@ model=load_model()
 
 #
 def pdf_to_img(path,dpi=300):
-    images=convert_from_bytes(path,dpi=dpi)
+    images=convert_from_path(path,dpi=dpi)
     return images
 
 
