@@ -8,7 +8,7 @@ from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 import base64
 
-st.set_page_config(page_title="Study Buddy",layout="wide",icon='📘')
+st.set_page_config(page_title="Study Buddy",layout="wide",page_icon='📘')
 
 @st.cache_resource
 def load_model():
