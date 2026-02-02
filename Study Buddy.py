@@ -129,7 +129,7 @@ def add_bg(image_file):
 
 
 
-add_bg(r"C:\Users\susan\Downloads\lofi girl.jpg")
+add_bg(r"lofi girl.jpg")
 
 
 #streamlit UI
