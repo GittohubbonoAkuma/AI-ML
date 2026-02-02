@@ -27,7 +27,6 @@ def pdf_to_img(path,dpi=300):
     images=convert_from_bytes(path,dpi=dpi)
     return images
 
-pytesseract.pytesseract.tesseract_cmd=r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 #process image
 def preprocess_image(pil_image):
