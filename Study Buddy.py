@@ -12,11 +12,11 @@ st.set_page_config(page_title="Study Buddy",layout="wide",icon='📘')
 
 @st.cache_resource
 def load_model():
-  model=SentenceTransformer("all-MiniLM-L6-v2")
+  return SentenceTransformer("all-MiniLM-L6-v2")
 
 model=load_model()
 
-def pdf_to_img(pat,dpi=300):
+def pdf_to_img(path,dpi=300):
   images=convert_from_path(path,dpi=dpi)
   return images
 
@@ -34,7 +34,7 @@ def preprocess_img(pil_image):
   gray_img,None,fx=2.0,fy=2.0,interpolation=cv2.INTER_CUBIC)
 
 
-  gray_img=cv2.fastNlMeansDenoising(gray,h=10)
+  gray_img=cv2.fastNlMeansDenoising(gray_img,h=10)
 
   return gray_img
 
@@ -53,7 +53,7 @@ def extract_text(path):
   full_text=""
   for i,img in enumerate(images):
 
-    processed=preprocess_image(img)
+    processed=preprocess_img(img)
     page_text=ocr_image(processed)
     full_text+=page_text+"\n"
 
@@ -84,12 +84,12 @@ def semantic_search(chunks,query):
   return chunks[best]
 
 def add_bg(image_path):
-  with open(image_file,"rb) as f:
+  with open(image_path,"rb") as f:
     encoded=base64.b64encode(f.read()).decode()
 
   st.markdown(
     f"""
-    <style
+    <style>
     .stApp{{
     background-image:url(data:image/jpg;base64,{encoded});
     background-size:cover;
@@ -107,17 +107,17 @@ add_bg(r"C:\Users\susan\Downloads\lofi girl.jpg")
 st.title("Study Buddy")
 st.write("Upload your notes and ask your question")
 
-uploaded_fies=st.file_uploader("Upload PDF",type=["pdf"])
+uploaded_file=st.file_uploader("Upload PDF",type=["pdf"])
 
 if uploaded_file is not None:
   if st.button("Process PDF"):
-    with tempfile.NamedTemporaryFile(delete=false,suffix=".pdf") as tmp:
+    with tempfile.NamedTemporaryFile(delete=False,suffix=".pdf") as tmp:
       tmp.write(uploaded_file.read())
 
       pdf_pth=tmp.name
 
-    with st.spinner("Running OCR.....Please wait")
-      raw_text=extract_text_from_pdf(pdf_path)
+    with st.spinner("Running OCR.....Please wait"):
+      raw_text=extract_text(pdf_path)
       cleaned=clean_text(raw_text)
       chunks=chunk_text(cleaned)
 
