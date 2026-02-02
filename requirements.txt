@@ -1,3 +1,10 @@
 streamlit
 pdf2image
 pillow
+pytesseract
+numpy
+opencv-python-headless
+sentence-transformers
+scikit-learn
+torch
+
